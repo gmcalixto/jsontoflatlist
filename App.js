@@ -1,16 +1,19 @@
 import React,{Component, useState} from 'react';
 import { Text, View, StyleSheet,FlatList,SafeAreaView,TouchableHighlight} from 'react-native';
 import Constants from 'expo-constants';
+import ModalUser from './components/ModalUser';
 
 var count = 1;
 
 //função que gera cada elemento
-function Item({nome, sobrenome}){ 
+function Item({nome, sobrenome,image_source,email}){ 
 
   return(
-    <View style={styles.item}>
-      <Text>{nome} {sobrenome}</Text>
-    </View>
+    <ModalUser 
+          first_name={nome}
+          last_name={sobrenome}
+          image_source={image_source}
+          email={email}/>
   );
 }
 
@@ -51,11 +54,14 @@ class App extends Component{
         data={this.state.listdata}
         renderItem={
             ({item}) =>             
-            <Item nome={item.first_name} sobrenome={item.last_name}/>
+            <Item nome={item.first_name} 
+                  sobrenome={item.last_name}
+                  image_source={item.avatar}
+                  email={item.email}/>
         }
         ListHeaderComponent={
           <View>
-            <Text>Exemplo</Text>
+            <Text>Tarefa 2</Text>
             <TouchableHighlight
               onPress={
                 () =>{
@@ -64,7 +70,7 @@ class App extends Component{
                 }
               }
               >
-              <Text style={{backgroundColor:'grey', textAlign: 'center'}}>Page {count}</Text>
+              <Text style={{backgroundColor:'yellow', textAlign: 'center'}}>Page {count}</Text>
             </TouchableHighlight>
           </View>
         }
@@ -81,10 +87,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginTop: Constants.statusBarHeight,
-  },
-  item: {
-    borderColor: 'black',
-    borderWidth: 2,
-    padding: 20,
   }
 });
